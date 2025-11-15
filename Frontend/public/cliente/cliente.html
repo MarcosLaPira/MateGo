@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>MateGo - Tienda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="logo">
+      <span class="emoji">🧉</span>
+      <span class="titulo">MateGo - Tienda</span>
+    </div>
+
+    <div class="acciones-header">
+      <span id="textoBienvenida"></span>
+      <button id="btnTema" class="btn-secundario">🌙 Tema</button>
+      <a href="admin.html" class="btn-link">Admin</a>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <section class="layout-dos-columnas">
+      
+      <div class="columna">
+        <div class="tarjeta">
+          <h2>Productos disponibles</h2>
+          <p class="texto-secundario">Seleccioná lo que quieras llevar.</p>
+
+          <div id="filtrosCategoria" class="filtros">
+            <button data-cat="todas" class="btn-filtro btn-filtro-activo">Todas</button>
+            <button data-cat="Mates" class="btn-filtro">Mates</button>
+            <button data-cat="Yerbas" class="btn-filtro">Yerbas</button>
+            <button data-cat="Accesorios" class="btn-filtro">Accesorios</button>
+          </div>
+
+          <div id="listaProductos" class="grid-productos">
+            <!-- productos por JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="columna">
+        <div class="tarjeta">
+          <h2>Tu pedido</h2>
+          <div id="carritoVacio" class="texto-secundario">
+            Todavía no agregaste productos.
+          </div>
+          <div id="carrito" class="lista-carrito"></div>
+
+          <div class="total-carrito">
+            <span>Total estimado:</span>
+            <span id="totalCarrito">$0</span>
+          </div>
+
+          <button id="btnConfirmar" class="btn-principal ancho-completo">
+            Confirmar pedido
+          </button>
+
+          <p class="texto-ayuda">
+            * Mostrá el ticket en caja para pagar. No se cobra online.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="seccionTicket" class="tarjeta oculto">
+      <h2>Ticket de tu pedido</h2>
+      <div id="contenidoTicket"></div>
+      <button id="btnNuevoPedido" class="btn-secundario">Volver al inicio</button>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <small>MateGo - Proyecto UTN Programación III</small>
+  </footer>
+
+  <script src="cliente.js"></script>
+</body>
+</html>
