@@ -49,6 +49,14 @@ body {
   gap: 8px;
 }
 
+.logoPng {
+  height: 40px;
+
+}
+.logoImagenTema {
+  height: 24px;
+}
+
 .logo .emoji {
   font-size: 1.6rem;
 }

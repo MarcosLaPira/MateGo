@@ -10,6 +10,7 @@ const estado = {
 // Referencias
 const textoBienvenida = document.getElementById("textoBienvenida");
 const btnTema = document.getElementById("btnTema");
+const iconoTema = document.getElementById("iconoTema");
 const filtrosCategoria = document.getElementById("filtrosCategoria");
 const listaProductos = document.getElementById("listaProductos");
 const carritoVacio = document.getElementById("carritoVacio");
@@ -36,27 +37,33 @@ function inicializarNombre() {
 // --------------- Tema claro/oscuro ---------------
 const temaGuardado = localStorage.getItem("tema") || "light";
 document.documentElement.setAttribute("data-theme", temaGuardado);
+actualizarIconoTema();
 
-function actualizarTextoBotonTema() {
+function actualizarIconoTema() {
   const tema = document.documentElement.getAttribute("data-theme");
-  btnTema.textContent = tema === "light" ? "Tema Light" : "Tema Dark";
-}
 
-actualizarTextoBotonTema();
+  if (tema === "light") {
+    iconoTema.src = "/png/luna-creciente.png";  // ícono para modo claro
+  } else {
+    iconoTema.src = "/png/dom.png";             // ícono para modo oscuro
+  }
+}
 
 btnTema.addEventListener("click", () => {
   const actual = document.documentElement.getAttribute("data-theme");
   const nuevo = actual === "light" ? "dark" : "light";
+
   document.documentElement.setAttribute("data-theme", nuevo);
   localStorage.setItem("tema", nuevo);
-  actualizarTextoBotonTema();
+
+  actualizarIconoTema();
 });
 
 
 //cargamos los productos desde la api
 async function cargarProductos() {
     
-debugger;
+  debugger;
   try {
 
    
