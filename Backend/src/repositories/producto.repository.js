@@ -4,7 +4,12 @@ async function getAllProducts() {
   return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto");
 }
 
+async function getAllProductsByCategory (idCategoriaProducto) {
+  return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idCategoriaProducto = ?",[ idCategoriaProducto ]);
+}
+
 async function getProductById(id) {
+  console.log("getProductById repository called with id:", id);
   return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idProducto = ?", [id]);
 }
 
@@ -35,6 +40,7 @@ function updateProduct(idProducto, { nombre, idCategoriaProducto, precio, stock,
 export {
   getAllProducts,
   getProductById,
+  getAllProductsByCategory,
   updateProduct,
   insertProduct
 };

@@ -68,19 +68,23 @@ btnSalir.addEventListener("click", () => {
 
 //cargamos los productos desde la api
 async function cargarProductos() {
-    
-  debugger;
   try {
+    const resp = await fetch(`${API_BASE}/productos`);
 
-   
-    const resp = await fetch(`${API_BASE}/productos`)
-    .then(res => res.json())
-    .then(data => console.log(data));
+    if (!resp.ok) {
+      throw new Error("Error al cargar productos");
+    }
 
-
-    if (!resp.ok) throw new Error("Error al cargar productos");
-
+    // acá sí obtenés el array de productos
     const productos = await resp.json();
+
+    console.log("Productos desde la API:", productos);
+
+    if (!Array.isArray(productos) || productos.length === 0) {
+      throw new Error("No se recibieron productos");
+    }
+
+    // filtrás por activos
     estado.productos = productos.filter(p => p.activo !== false);
 
     renderizarProductos();
@@ -89,10 +93,13 @@ async function cargarProductos() {
     console.error(err);
     listaProductos.innerHTML = "<p>Error al cargar productos.</p>";
   }
-  
 }
 
+
 function renderizarProductos() {
+
+    debugger;
+
   listaProductos.innerHTML = "";
 
   const filtrados = estado.productos.filter(p => {
@@ -106,12 +113,12 @@ function renderizarProductos() {
   }
 
   filtrados.forEach(p => {
+
+    
     const tarjeta = document.createElement("div");
     tarjeta.className = "tarjeta-producto";
 
-    const imagen = p.imagen
-      ? `http://localhost:3000/public/uploads/${p.imagen}`
-      : "img/placeholder.jpg";
+    const imagen = p.urlImagen || "/png/imagen-no-disponible.png";
 
     tarjeta.innerHTML = `
       <img src="${imagen}" alt="${p.nombre}">
@@ -130,6 +137,7 @@ function renderizarProductos() {
 
 // filtros
 filtrosCategoria.addEventListener("click", (e) => {
+
   const cat = e.target.getAttribute("data-cat");
   if (!cat) return;
   estado.filtroCategoria = cat;
@@ -138,6 +146,7 @@ filtrosCategoria.addEventListener("click", (e) => {
   e.target.classList.add("btn-filtro-activo");
 
   renderizarProductos();
+  
 });
 
 // --------------- Carrito ---------------

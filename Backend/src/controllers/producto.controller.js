@@ -10,6 +10,26 @@ export async function getAllProducts(req, res) {
   }
 }
 
+export async function getAllProductsByCategory(req, res) {
+  // console.log("getAllProducts controller called");
+  try {
+
+    console.log(req.params);
+    const { categoriaId } = req.params;
+    console.log(categoriaId);
+
+    if (!categoriaId) {
+      return res.status(400).json({ error: "El parámetro idCategoriaProducto es obligatorio" });
+    }
+    console.log("idCategoriaProducto:", categoriaId);
+    const productos = await productService.findAllProductsByCategory(categoriaId);
+    res.json(productos);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 export async function getProductById(req, res) {
   try {
     const { id } = req.params;
