@@ -51,6 +51,7 @@ function actualizarIconoTema() {
   }
 }
 
+
 btnTema.addEventListener("click", () => {
   const actual = document.documentElement.getAttribute("data-theme");
   const nuevo = actual === "light" ? "dark" : "light";
@@ -135,19 +136,43 @@ function renderizarProductos() {
   });
 }
 
-// filtros
-filtrosCategoria.addEventListener("click", (e) => {
+filtrosCategoria.addEventListener("click", async (e) => {
 
-  const cat = e.target.getAttribute("data-cat");
-  if (!cat) return;
-  estado.filtroCategoria = cat;
+  const boton = e.target.closest("button");
+  if (!boton) return;
+
+  const cat = boton.dataset.cat;
 
   document.querySelectorAll(".btn-filtro").forEach(b => b.classList.remove("btn-filtro-activo"));
-  e.target.classList.add("btn-filtro-activo");
+  boton.classList.add("btn-filtro-activo");
 
-  renderizarProductos();
-  
+  if (cat === "todas") {
+    // reutilizás tu cargarProductos general
+    await cargarProductos();
+    return;
+  }
+
+  try {
+
+    const resp = await fetch(`${API_BASE}/productos/categoria/${cat}`);
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      alert(data.error || "Error al obtener productos por categoría.");
+      return;
+    }
+
+    estado.productos = data;
+    renderizarProductos();
+
+  } catch (error) {
+    console.error(error);
+
+    alert("Error de red al filtrar productos.");
+    
+  }
 });
+
 
 // --------------- Carrito ---------------
 function agregarAlCarrito(prod) {
@@ -288,4 +313,45 @@ btnNuevoPedido.addEventListener("click", () => {
 // Inicialización
 inicializarNombre();
 cargarProductos();
+cargarCategorias();
 renderizarCarrito();
+
+async function cargarCategorias() {
+
+  try {
+    const resp = await fetch(`${API_BASE}/productos/categorias`);
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      console.error("Error al obtener categorías:", data);
+      alert(data.error || "Error al obtener categorías.");
+      return;
+    }
+
+    // Limpio cualquier cosa previa
+    filtrosCategoria.innerHTML = "";
+
+    // Botón "Todas"
+    filtrosCategoria.innerHTML += `
+      <button data-cat="todas" class="btn-filtro btn-filtro-activo">Todas</button>
+    `;
+
+    // Botones de cada categoría
+    data.forEach((cat) => {
+
+      filtrosCategoria.innerHTML += `
+        <button data-cat="${cat.idCategoriaProducto}" class="btn-filtro">
+          ${cat.descripcion}
+        </button>
+
+      `;
+    });
+
+  } catch (error) {
+
+    console.error("Error de red al obtener categorías:", error);
+    alert("No se pudieron cargar las categorías. Intentá más tarde.");
+
+  }
+}
+

@@ -10,10 +10,16 @@ export async function findAllProducts() {
   return rows.map(p => obtenerUrlImagen(p));
 }
 
+export async function findAllCategories() {
+  const [rows] = await productRepository.geyAllCategories();
+
+  return rows;
+}
+
 
 export async function findAllProductsByCategory(idCategoriaProducto) {
 
-  
+
   const [rows] = await productRepository.getAllProductsByCategory(idCategoriaProducto);
 
   return rows.map(p => obtenerUrlImagen(p));

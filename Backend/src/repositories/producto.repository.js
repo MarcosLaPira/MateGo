@@ -4,6 +4,10 @@ async function getAllProducts() {
   return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto");
 }
 
+async function geyAllCategories() {
+  return connection.query("select idCategoriaProducto,descripcion from categoriaproducto");
+}
+
 async function getAllProductsByCategory (idCategoriaProducto) {
   return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idCategoriaProducto = ?",[ idCategoriaProducto ]);
 }
@@ -39,6 +43,7 @@ function updateProduct(idProducto, { nombre, idCategoriaProducto, precio, stock,
 
 export {
   getAllProducts,
+  geyAllCategories,
   getProductById,
   getAllProductsByCategory,
   updateProduct,

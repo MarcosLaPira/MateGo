@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getAllProducts,
   getAllProductsByCategory,
+  GetAllCategories,
   getProductById,
   updateProduct,
   createProduct
@@ -11,7 +12,8 @@ import { upload } from "../config/multer.js";
 const router = Router();
 
 router.get("/", getAllProducts);
-router.get("/categoria/:categoriaId", getAllProductsByCategory); // 👈 más específico
+router.get("/categoria/:categoriaId", getAllProductsByCategory); 
+router.get("/categorias", GetAllCategories); 
 router.get("/:id", getProductById);
 router.post("/",createProduct );
 router.put("/:id", updateProduct);

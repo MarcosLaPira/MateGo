@@ -30,6 +30,22 @@ export async function getAllProductsByCategory(req, res) {
   }
 }
 
+
+export async function GetAllCategories(req, res) {
+  try {
+    
+    console.log("GetAllCategories controller called");
+   
+    const categorias = await productService.findAllCategories();
+    res.json(categorias);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
 export async function getProductById(req, res) {
   try {
     const { id } = req.params;
