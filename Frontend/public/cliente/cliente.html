@@ -9,42 +9,68 @@
 <body>
 
   <header class="encabezado">
+
     <div class="logo">
-      <span class="emoji">🧉</span>
+
+      <img src="/png/te-de-mate.png" alt="" class="logoPng">
       <span class="titulo">MateGo - Tienda</span>
+
     </div>
 
     <div class="acciones-header">
+
       <span id="textoBienvenida"></span>
-      <button id="btnTema" class="btn-secundario">🌙 Tema</button>
+
+      <button id="btnTema" class="btn-secundario">
+        
+          <img id="iconoTema" src="/png/luna-creciente.png" alt="" class="logoImagenTema">
+
+      </button>
+
+      <button id="btnSalir" class="btn-secundario">
+      
+          <img id="iconoTema" src="/png/cerrar-sesion.png" alt="" class="logoImagenTema" title="Salir">
+
+      </button>
+
       <a href="admin.html" class="btn-link">Admin</a>
+
     </div>
+
   </header>
 
   <main class="contenedor">
 
     <section class="layout-dos-columnas">
-      
+
       <div class="columna">
+
         <div class="tarjeta">
+
           <h2>Productos disponibles</h2>
           <p class="texto-secundario">Seleccioná lo que quieras llevar.</p>
 
           <div id="filtrosCategoria" class="filtros">
+
             <button data-cat="todas" class="btn-filtro btn-filtro-activo">Todas</button>
             <button data-cat="Mates" class="btn-filtro">Mates</button>
             <button data-cat="Yerbas" class="btn-filtro">Yerbas</button>
             <button data-cat="Accesorios" class="btn-filtro">Accesorios</button>
+
           </div>
 
           <div id="listaProductos" class="grid-productos">
             <!-- productos por JS -->
           </div>
+
         </div>
+
       </div>
 
       <div class="columna">
+
         <div class="tarjeta">
+
           <h2>Tu pedido</h2>
           <div id="carritoVacio" class="texto-secundario">
             Todavía no agregaste productos.
@@ -63,15 +89,20 @@
           <p class="texto-ayuda">
             * Mostrá el ticket en caja para pagar. No se cobra online.
           </p>
+
         </div>
+
       </div>
     </section>
 
     <section id="seccionTicket" class="tarjeta oculto">
+
       <h2>Ticket de tu pedido</h2>
       <div id="contenidoTicket"></div>
       <button id="btnNuevoPedido" class="btn-secundario">Volver al inicio</button>
+
     </section>
+
   </main>
 
   <footer class="pie">
