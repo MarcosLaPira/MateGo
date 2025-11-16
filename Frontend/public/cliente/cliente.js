@@ -21,6 +21,8 @@ const seccionTicket = document.getElementById("seccionTicket");
 const contenidoTicket = document.getElementById("contenidoTicket");
 const btnNuevoPedido = document.getElementById("btnNuevoPedido");
 
+const btnSalir = document.getElementById("btnSalir");
+
 
 //cargar nombre cliente
 function inicializarNombre() {
@@ -59,6 +61,10 @@ btnTema.addEventListener("click", () => {
   actualizarIconoTema();
 });
 
+btnSalir.addEventListener("click", () => {
+  localStorage.removeItem("nombreCliente");
+  window.location.href = "/public/inicio/index.html";
+});
 
 //cargamos los productos desde la api
 async function cargarProductos() {
