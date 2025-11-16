@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000/api";
+const API_BASE = "http://localhost:3000";
 
 const estado = {
   nombreCliente: "",
@@ -56,9 +56,15 @@ btnTema.addEventListener("click", () => {
 //cargamos los productos desde la api
 async function cargarProductos() {
     
+debugger;
   try {
 
-    const resp = await fetch(`${API_BASE}/productos`);
+   
+    const resp = await fetch(`${API_BASE}/productos`)
+    .then(res => res.json())
+    .then(data => console.log(data));
+
+
     if (!resp.ok) throw new Error("Error al cargar productos");
 
     const productos = await resp.json();
