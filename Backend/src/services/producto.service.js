@@ -1,19 +1,35 @@
 import * as productRepository from "../repositories/producto.repository.js";
+import { server } from "../config/enviroment.js";
 
+// =============================
+//        FIND ALL
+// =============================
 export async function findAllProducts() {
   const [rows] = await productRepository.getAllProducts();
-  return rows;
+
+  return rows.map(p => obtenerUrlImagen(p));
 }
 
+// =============================
+//      FIND BY ID
+// =============================
 export async function findProductById(id) {
-  const [rows] = await productRepository.getProductById(id);
+  try {
+    const [rows] = await productRepository.getProductById(id);
 
-  if (rows.length === 0) {
+    if (rows.length === 0) return null;
+
+    return obtenerUrlImagen(rows[0]);
+
+  } catch (error) {
+    console.error("Error en findProductById:", error);
     return null;
   }
-
-  return rows[0];
 }
+
+// =============================
+//        CREATE PRODUCT
+// =============================
 export async function createProduct(data) {
   const { nombre, idCategoriaProducto, precio, stock, imagen } = data;
 
@@ -25,6 +41,9 @@ export async function createProduct(data) {
   return result.insertId;
 }
 
+// =============================
+//        UPDATE PRODUCT
+// =============================
 export async function updateProduct(id, data) {
   const { nombre, idCategoriaProducto, precio, stock, imagen, activo } = data;
 
@@ -39,4 +58,21 @@ export async function updateProduct(id, data) {
   }
 
   return true;
+}
+
+// =============================
+//     MAPEO URL IMAGEN
+// =============================
+function obtenerUrlImagen(product) {
+  if (!product) return null;
+
+  const baseUrl = `${server.url}:${server.port}`;
+
+  // no modifica el objeto original, crea uno nuevo con la URL
+  return {
+    ...product,
+    urlImagen: product.imagen 
+      ? `${baseUrl}/Imagenes/${product.imagen}`
+      : null
+  };
 }

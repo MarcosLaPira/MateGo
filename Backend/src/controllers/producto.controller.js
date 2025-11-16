@@ -1,7 +1,7 @@
 import * as productService from "../services/producto.service.js";
 
 export async function getAllProducts(req, res) {
-  console.log("getAllProducts controller called");
+  // console.log("getAllProducts controller called");
   try {
     const productos = await productService.findAllProducts();
     res.json(productos);

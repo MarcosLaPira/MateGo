@@ -5,6 +5,7 @@ import {
   updateProduct,
   createProduct
 } from "../controllers/producto.controller.js";
+import { upload } from "../config/multer.js";
 
 const router = Router();
 

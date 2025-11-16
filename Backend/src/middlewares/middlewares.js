@@ -28,15 +28,7 @@ const validateId = (req, res, next) => {
 }
 
 
-// Middleware saluditos
-const saluditos = (req, res, next) => {
-    console.log("Holis! Como va che todo en orden?");
-    next();
-}
-
-
 export {
     loggerUrl,
-    validateId,
-    saluditos
+    validateId
 }

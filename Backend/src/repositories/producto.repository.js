@@ -1,11 +1,11 @@
 import connection from "../config/db.js";
 
 async function getAllProducts() {
-  return connection.query("SELECT * FROM producto");
+  return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto");
 }
 
 async function getProductById(id) {
-  return connection.query("SELECT * FROM producto WHERE idProducto = ?", [id]);
+  return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idProducto = ?", [id]);
 }
 
 function insertProduct({ nombre, idCategoriaProducto, precio, stock, imagen }) {

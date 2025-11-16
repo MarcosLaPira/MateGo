@@ -3,7 +3,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const port = process.env.SERV_PORT || 3000;
+export const server = {
+    port: process.env.SERV_PORT || 3000,
+    url: process.env.SERV_URL
+}
 
 export const database = {
     host: process.env.DB_HOST,
