@@ -41,11 +41,23 @@ function updateProduct(idProducto, { nombre, idCategoriaProducto, precio, stock,
   );
 }
 
+function descontarStock(idProducto, cantidad) {
+  return connection.query(
+    `UPDATE producto
+      SET stock = stock - ?
+      WHERE idProducto = ?`,
+    [cantidad, idProducto]
+  );  
+}
+
+
+
 export {
   getAllProducts,
   geyAllCategories,
   getProductById,
   getAllProductsByCategory,
+  descontarStock,
   updateProduct,
   insertProduct
 };

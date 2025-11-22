@@ -169,7 +169,7 @@ filtrosCategoria.addEventListener("click", async (e) => {
     console.error(error);
 
     alert("Error de red al filtrar productos.");
-    
+
   }
 });
 
@@ -237,17 +237,23 @@ function renderizarCarrito() {
   totalCarritoSpan.textContent = `$${total.toFixed(2)}`;
 }
 
-
-//confirmar pedido api
+// Confirmar pedido y enviar a la API
 btnConfirmar.addEventListener("click", async () => {
+
   if (estado.carrito.length === 0) {
     alert("Tu pedido está vacío.");
     return;
   }
 
+  // Calculamos total en el front (también se calcula en el back, pero lo usamos para mostrar rápido)
+  const total = estado.carrito.reduce((acc, item) => {
+    const precio = Number(item.precio) || 0;
+    return acc + precio * item.cantidad;
+  }, 0);
+
   const cuerpo = {
     nombreCliente: estado.nombreCliente,
-    items: estado.carrito.map(i => ({
+    detalleVenta: estado.carrito.map(i => ({
       idProducto: i.idProducto,
       cantidad: i.cantidad
     }))
@@ -261,19 +267,40 @@ btnConfirmar.addEventListener("click", async () => {
     });
 
     const data = await resp.json();
+
     if (!resp.ok) {
       alert(data.error || "Error al registrar la venta.");
       return;
     }
 
-    mostrarTicket(data.idVenta);
+    // Guardamos info del ticket en localStorage
+    const ticketData = {
+      idVenta: data.idVenta,
+      nombreCliente: estado.nombreCliente,
+      fecha: new Date().toISOString(),
+      empresa: "MateGo - Autoservicio de mates y yerbas",
+      items: estado.carrito,   // asumimos que cada item tiene nombre, precio, cantidad, etc.
+      total: total
+    };
+
+    localStorage.setItem("ultimoTicket", JSON.stringify(ticketData));
+
+    // Limpiamos carrito en memoria (opcional)
+    estado.carrito = [];
+    // si tenés función para refrescar UI del carrito, podés llamarla acá
+
+    // Redirigimos a la pantalla de ticket
+    window.location.href = "/public/ticket/ticket.html";
+
   } catch (err) {
     console.error(err);
     alert("Error de conexión con el servidor.");
   }
 });
 
+
 function mostrarTicket(idVenta) {
+
   const fecha = new Date().toLocaleString();
 
   let html = `
@@ -284,6 +311,7 @@ function mostrarTicket(idVenta) {
   `;
 
   let total = 0;
+
   estado.carrito.forEach(item => {
     const subtotal = item.precio * item.cantidad;
     total += subtotal;
@@ -301,6 +329,7 @@ function mostrarTicket(idVenta) {
 
   contenidoTicket.innerHTML = html;
   seccionTicket.classList.remove("oculto");
+
 }
 
 // nuevo pedido

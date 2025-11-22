@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>MateGo - Ticket de compra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="ticket.css" />
+</head>
+<body>
+
+  <main class="contenedor-ticket">
+    <section class="tarjeta-ticket">
+      <h1 class="titulo-empresa" id="nombreEmpresa">MateGo - Autoservicio</h1>
+
+      <div class="ticket-info">
+        <p><strong>Cliente:</strong> <span id="ticketNombreCliente"></span></p>
+        <p><strong>Fecha:</strong> <span id="ticketFecha"></span></p>
+        <p><strong>N° de pedido:</strong> <span id="ticketIdVenta"></span></p>
+      </div>
+
+      <h2>Detalle de la compra</h2>
+
+      <table class="tabla-ticket">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cant.</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="ticketDetalle">
+          <!-- filas generadas por JS -->
+        </tbody>
+      </table>
+
+      <div class="ticket-total">
+        <span>Total:</span>
+        <span id="ticketTotal"></span>
+      </div>
+
+      <div class="acciones-ticket">
+        <button id="btnNuevoPedido">Nuevo pedido</button>
+        <button id="btnDescargarTicket">Descargar ticket (PDF)</button>
+      </div>
+
+      <p class="nota-ticket">
+        * Este ticket es solo un comprobante para tu compra en el local.
+      </p>
+    </section>
+  </main>
+
+  <script src="ticket.js"></script>
+</body>
+</html>
