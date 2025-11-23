@@ -1,0 +1,89 @@
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+}
+
+.contenedor-form {
+  max-width: 480px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoPng {
+  height: 40px;
+
+}
+.logoImagenTema {
+  height: 24px;
+}
+
+.logo .emoji {
+  font-size: 1.6rem;
+}
+
+.logo .titulo {
+  font-weight: bold;
+}
+
+
+h2 {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background: #00796b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.btn-volver {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: #00796b;
+  text-decoration: none;
+}
+
+
+
+.pie {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: var(--texto-sec);
+ 
+}

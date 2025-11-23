@@ -86,7 +86,7 @@ async function cargarProductos() {
     }
 
     // filtrás por activos
-    estado.productos = productos.filter(p => p.activo !== false);
+    estado.productos = productos.filter(p => p.activo !== 0);
 
     renderizarProductos();
 

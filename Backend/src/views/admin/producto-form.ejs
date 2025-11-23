@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <title>MateGo - <%= modo === "alta" ? "Alta de producto" : "Edición de producto" %></title>
+  <link rel="stylesheet" href="/css/admin-producto.css" />
+  
+</head>
+<body class="dashboard">
+
+  <main class="contenedor-form">
+
+    <section class="tarjeta">
+
+      <h1><%= modo === "alta" ? "Alta de producto" : "Edición de producto" %></h1>
+
+      <% if (error) { %>
+        <p class="error"><%= error %></p>
+      <% } %>
+
+      <form action="/admin/productos" method="POST" enctype="multipart/form-data">
+       
+        <div class="campo-form">
+
+          <label for="nombre">Nombre</label>
+
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            value="<%= producto ? producto.nombre : "" %>"
+          />
+
+        </div>
+
+        <div class="campo-form">
+
+          <label for="idCategoriaProducto">Categoría</label>
+
+          <select id="idCategoriaProducto" name="idCategoriaProducto" required>
+           
+            <option value="">Seleccione una categoría</option>
+            <% categorias.forEach(cat => { %>
+              <option
+                value="<%= cat.idCategoriaProducto %>"
+                <%= producto && producto.idCategoriaProducto === cat.idCategoriaProducto ? "selected" : "" %>
+              >
+                <%= cat.descripcion %>
+              </option>
+            <% }); %>
+
+          </select>
+
+        </div>
+
+        <div class="campo-form">
+
+          <label for="precio">Precio</label>
+
+          <input
+            type="number"
+            step="0.01"
+            min="0"
+            id="precio"
+            name="precio"
+            required
+            value="<%= producto ? producto.precio : "" %>"
+          />
+
+        </div>
+
+        <div class="campo-form">
+
+          <label for="stock">Stock</label>
+          <input
+            type="number"
+            min="0"
+            id="stock"
+            name="stock"
+            required
+            value="<%= producto ? producto.stock : "" %>"
+          />
+
+        </div>
+
+        <div class="campo-form">
+
+          <label for="imagen">Imagen</label>
+
+          <input
+            type="file"
+            id="imagen"
+            name="imagen"
+            accept="image/*"
+            <%= modo === "alta" ? "required" : "" %>
+          />
+          <% if (producto && producto.imagen) { %>
+            <p>Imagen actual: <%= producto.imagen %></p>
+          <% } %>
+
+        </div>
+
+        <div class="acciones-form">
+
+            <button type="submit"><%= modo === "alta" ? "Agregar producto" : "Guardar cambios" %></button>
+            <a href="/admin/dashboard" class="btn-secundario">Cancelar</a>
+           
+            <a href="http://127.0.0.1:5500/public/inicio/index.html" class="btn-secundario salir-btn">Salir</a>
+      
+          </div>
+
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <small>MateGo - Proyecto UTN Programación III Lautaro Moreira y Marcos La Pira</small>
+  </footer>
+
+
+</body>
+</html>

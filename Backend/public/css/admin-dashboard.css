@@ -1,0 +1,105 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+  
+}
+
+
+.header-admin {
+  background: #00796b;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-admin h1 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoPng {
+  height: 40px;
+
+}
+.logoImagenTema {
+  height: 24px;
+}
+
+.logo .emoji {
+  font-size: 1.6rem;
+}
+
+.logo .titulo {
+  font-weight: bold;
+}
+
+.acciones-header a {
+  background: white;
+  color: #00796b;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-left: 10px;
+  font-size: 0.9rem;
+}
+
+.acciones-header a:hover {
+  opacity: 0.85;
+}
+
+.tabla-productos {
+  width: 95%;
+  margin: 20px auto;
+  border-collapse: collapse;
+ 
+}
+
+.tabla-productos th, .tabla-productos td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.tabla-productos th {
+  background: #e0f2f1;
+}
+
+.btn-accion {
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.btn-editar {
+  background: #0277bd;
+  color: white;
+}
+
+.btn-eliminar {
+  background: #d32f2f;
+  color: white;
+}
+
+
+
+
+.pie {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: var(--texto-sec);
+ 
+}

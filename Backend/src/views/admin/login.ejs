@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>MateGo - Login Admin</title>
+  <link rel="stylesheet" href="/css/admin-login.css" />
+</head>
+<body>
+
+  <main class="contenedor">
+
+   
+
+    <section class="tarjeta">
+
+      <div class="logo">
+
+        <img src="/png/te-de-mate.png" alt="" class="logoPng">
+        <span class="titulo">MateGo - Inicio Administrador</span>
+
+      </div>
+    
+
+
+      <% if (error) { %>
+        <p class="error"><%= error %></p>
+      <% } %>
+
+      <form action="/admin/login" method="POST">
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required />
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" required />
+
+        <button type="submit">Ingresar</button>
+
+      </form>
+
+       <div class="acciones-form">
+           
+            <a href="http://127.0.0.1:5500/public/inicio/index.html" class="btn-secundario salir-btn">Salir</a>
+      </div>
+      
+    </section>
+    
+  </main>
+
+  
+  <footer class="pie">
+    <small>MateGo - Proyecto UTN Programación III Lautaro Moreira y Marcos La Pira</small>
+  </footer>
+
+</body>
+</html>

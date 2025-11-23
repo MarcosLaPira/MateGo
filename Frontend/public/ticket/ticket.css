@@ -116,3 +116,13 @@ h2 {
   color: #777;
   text-align: center;
 }
+
+
+
+
+.pie {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: var(--texto-sec);
+}

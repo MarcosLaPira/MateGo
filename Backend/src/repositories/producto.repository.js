@@ -1,7 +1,9 @@
 import connection from "../config/db.js";
 
 async function getAllProducts() {
-  return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto");
+  return connection.query("SELECT idProducto, nombre, p.idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion,cp.descripcion FROM producto p inner join categoriaproducto cp on cp.idcategoriaproducto = p.idcategoriaproducto"
+    
+  );
 }
 
 async function geyAllCategories() {

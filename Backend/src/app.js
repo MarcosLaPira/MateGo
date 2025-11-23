@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import productRoutes from "./routes/producto.routes.js";
 import ventasRoutes from "./routes/ventas.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 import { server } from "./config/enviroment.js";
 
 import path from "path";
@@ -22,13 +23,28 @@ app.use(cors());
 // permite que el servidor de Node  comprenda y registre datos del json
 app.use(express.json());
 
+
+// par permitir fomurlarios ejs
+app.use(express.urlencoded({ extended: true }));
+
 //hace pública la carpeta /public, permitiendo acceder a sus archivos directamente desde el navegador.
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+
+
+// Configurar EJS
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Asignamos las rutas del módulo de productos.
 // Cualquier ruta dentro de productRoutes quedará bajo /productos
 app.use("/productos", productRoutes);
 app.use("/ventas", ventasRoutes); 
+
+
+// Rutas Admin (EJS)
+app.use("/admin", adminRoutes);
+
 
 // Ruta base para probar que el servidor está funcionando. 
 app.get("/", (req, res) => {
