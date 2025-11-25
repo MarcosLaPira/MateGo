@@ -215,7 +215,9 @@ function renderizarCarrito() {
       <span>$${item.precio.toFixed(2)}</span>
       <input type="number" min="1" value="${item.cantidad}">
       <span class="subtotal">$${subtotal.toFixed(2)}</span>
-      <button class="btn-eliminar">Quitar</button>
+      <button class="btn-eliminar">
+         <img id="iconoTema" src="/png/borrar.png" alt="" class="logoImagenTema">
+      </button>
     `;
 
     const inputCant = fila.querySelector("input");
