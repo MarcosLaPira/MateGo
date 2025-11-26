@@ -52,6 +52,9 @@ body {
 .logoPng {
   height: 40px;
 
+
+}:hover {
+  cursor: pointer;
 }
 .logoImagenTema {
   height: 24px;
