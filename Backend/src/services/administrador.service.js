@@ -13,7 +13,7 @@ export async function loginAdmin(correo, contrasenaPlano) {
   const usuario = await usuarioAdminRepository.getByCorreo(correo);
 
   if (!usuario) {
-    // No decimos "no existe" para no dar pistas → mensaje genérico
+    // No decimos "no existe" para no dar pistas  mensaje genérico
     throw new Error("Usuario o contraseña inválidos.");
   }
 
@@ -23,7 +23,7 @@ export async function loginAdmin(correo, contrasenaPlano) {
     throw new Error("Usuario o contraseña inválidos.");
   }
 
-  // Si llegó acá, login OK → actualizamos último ingreso
+  // Si llegó acá, login OK  actualizamos último ingreso
   await usuarioAdminRepository.actualizarUltimoIngreso(usuario.idUsuarioAdministrador);
 
   // Devolvemos datos básicos (sin contraseña)

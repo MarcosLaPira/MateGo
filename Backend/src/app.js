@@ -8,8 +8,6 @@ import { server } from "./config/enviroment.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
-
 //Inicializamos la aplicación Express.
 const app = express() 
 
@@ -31,7 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 
-
 // Configurar EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -41,15 +38,13 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/productos", productRoutes);
 app.use("/ventas", ventasRoutes); 
 
-
 // Rutas Admin (EJS)
 app.use("/admin", adminRoutes);
 
-
 // Ruta base para probar que el servidor está funcionando. 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World!");
+// });
 
 // Muestra en consola la URL local para acceder a la API.
 app.listen(server.port, () => {

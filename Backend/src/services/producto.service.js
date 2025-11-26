@@ -26,6 +26,26 @@ export async function findAllProductsByCategory(idCategoriaProducto) {
 }
 
 // =============================
+//      DELETE
+// =============================
+//Elimina logicamente el producto
+export async function deleteProduct(id) {
+  try {
+    const [result] = await productRepository.deleteProduct(id);
+    
+    if(result.affectedRows === 0) { // No se actualizo nada
+      return false;
+    }
+
+    return true
+
+  } catch (error) {
+    console.error("Error en deleteProduct:", error);
+    return null;
+  }
+}
+
+// =============================
 //      FIND BY ID
 // =============================
 export async function findProductById(id) {
@@ -65,6 +85,14 @@ export async function updateProduct(id, data) {
   if (!nombre || !idCategoriaProducto || !precio || !stock || !imagen || activo == null) {
     throw new Error("Campos obligatorios: nombre, idCategoriaProducto, precio, stock, imagen, activo");
   }
+
+  if (stock < 0) {
+    throw new Error("El stock no puede ser negativo");
+  } 
+
+  if (stock = 0) {
+    activo = false;
+  } 
 
   const [result] = await productRepository.updateProduct(id, data);
 

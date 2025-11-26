@@ -37,14 +37,12 @@ export async function GetAllCategories(req, res) {
     console.log("GetAllCategories controller called");
    
     const categorias = await productService.findAllCategories();
-    res.json(categorias);
+    res.json(categorias);ss
 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
-
-
 
 export async function getProductById(req, res) {
   try {
@@ -56,6 +54,22 @@ export async function getProductById(req, res) {
     }
 
     res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+export async function deleteProduct(req, res) {
+  try {
+    const { id } = req.params;
+    const result = await productService.deleteProduct(id);
+
+    if (!result) {
+     return res.status(400).json({ message: "No se elimino el producto" });
+    }
+
+    res.status(200).json({ message: "Producto eliminado correctamente" }  );
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

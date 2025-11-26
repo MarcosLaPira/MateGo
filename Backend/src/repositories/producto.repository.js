@@ -15,8 +15,17 @@ async function getAllProductsByCategory (idCategoriaProducto) {
 }
 
 async function getProductById(id) {
-  console.log("getProductById repository called with id:", id);
-  return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idProducto = ?", [id]);
+   return connection.query("SELECT idProducto, nombre, idCategoriaProducto, precio, stock, imagen, activo, fechaCreacion, fechaActualizacion FROM producto WHERE idProducto = ?", [id]);
+}
+
+async function deleteProduct(id) {
+   return connection.query(
+    `UPDATE producto 
+     SET activo = false,
+         fechaActualizacion = NOW()
+     WHERE idProducto = ?`,
+    [id]
+  );;
 }
 
 function insertProduct({ nombre, idCategoriaProducto, precio, stock, imagen }) {
@@ -61,5 +70,6 @@ export {
   getAllProductsByCategory,
   descontarStock,
   updateProduct,
-  insertProduct
+  insertProduct,
+  deleteProduct
 };
