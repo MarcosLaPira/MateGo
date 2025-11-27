@@ -87,3 +87,34 @@ button:hover {
   color: var(--texto-sec);
  
 }
+
+/* Contenedor especial para imagen */
+.imagen-container {
+  margin-top: 15px;
+}
+
+/* Bloque que contiene el texto y la imagen */
+.preview-imagen {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Texto arriba de la imagen */
+.preview-imagen span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+/* La imagen con estilo */
+.preview-imagen img {
+  width: 180px;              /* tamaño elegante */
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;        /* esquinas suaves */
+  border: 1px solid #ddd;    /* borde fino */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12); /* sombra suave */
+  align-self: center;        /* centrada dentro del form */
+}

@@ -6,12 +6,11 @@ import { server } from "../config/enviroment.js";
 // =============================
 export async function findAllProducts() {
   const [rows] = await productRepository.getAllProducts();
-
   return rows.map(p => obtenerUrlImagen(p));
 }
 
 export async function findAllCategories() {
-  const [rows] = await productRepository.geyAllCategories();
+  const [rows] = await productRepository.getAllCategories();
 
   return rows;
 }

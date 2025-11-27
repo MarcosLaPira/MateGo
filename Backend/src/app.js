@@ -4,6 +4,7 @@ import productRoutes from "./routes/producto.routes.js";
 import ventasRoutes from "./routes/ventas.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import { server } from "./config/enviroment.js";
+import { loggerUrl } from "./middlewares/middlewares.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -21,6 +22,8 @@ app.use(cors());
 // permite que el servidor de Node  comprenda y registre datos del json
 app.use(express.json());
 
+//MW de logger para todas las rutas
+app.use(loggerUrl);
 
 // par permitir fomurlarios ejs
 app.use(express.urlencoded({ extended: true }));

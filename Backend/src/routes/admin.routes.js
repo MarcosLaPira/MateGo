@@ -4,7 +4,7 @@ import {
   mostrarLogin,
   procesarLogin,
   mostrarDashboard,
-  mostrarFormularioAltaProducto,
+  mostrarFormularioProducto,
   procesarAltaProducto
 } from "../controllers/admin.controller.js";
 
@@ -19,12 +19,22 @@ router.post("/login", procesarLogin);
 // Dashboard
 router.get("/dashboard", mostrarDashboard);
 
+// Modificacion de producto (admin)
+router.get("/productos/:id/editar", mostrarFormularioProducto("modificacion"));
+
 // Alta de producto (admin)
-router.get("/productos/nuevo", mostrarFormularioAltaProducto);
+router.get("/productos/nuevo", mostrarFormularioProducto("alta"));
 
 // POST alta de producto con imagen
 router.post(
   "/productos",
+  upload.single("imagen"), // "imagen" tiene que coincidir con el name del input file
+  procesarAltaProducto
+);
+
+// POST alta de producto con imagen
+router.post(
+  "/productos/:id/editar",
   upload.single("imagen"), // "imagen" tiene que coincidir con el name del input file
   procesarAltaProducto
 );

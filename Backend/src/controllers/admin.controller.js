@@ -1,12 +1,11 @@
 
-import * as productRepository from "../repositories/producto.repository.js";
+import * as productService from "../services/producto.service.js";
 import * as adminService from "../services/administrador.service.js";
 
 
 export async function mostrarLogin(req, res) {
   res.render("admin/login", { error: null });
 }
-
 
 export async function procesarLogin(req, res) {
 
@@ -15,7 +14,6 @@ export async function procesarLogin(req, res) {
 
   try {
     const admin = await adminService.loginAdmin(correo, contrasena);
-
    
     return res.redirect("/admin/dashboard");
   } catch (error) {
@@ -30,7 +28,7 @@ export async function procesarLogin(req, res) {
 export async function mostrarDashboard(req, res) {
 
   try {
-    const [productos] = await productRepository.getAllProducts();
+    const productos = await productService.findAllProducts();
 
     res.render("admin/dashboard", {
       productos,
@@ -49,39 +47,59 @@ export async function mostrarDashboard(req, res) {
   }
 }
 
-
-
-
 // GET /admin/productos/nuevo
-export async function mostrarFormularioAltaProducto(req, res) {
-  try {
-    const [categorias] = await productRepository.geyAllCategories(); // ojo, tu función se llama así
-    res.render("admin/producto-form", {
-      modo: "alta",
-      producto: null,
-      categorias,
-      error: null
-    });
-  } catch (error) {
-    console.error("Error al cargar formulario de alta:", error);
-    res.render("admin/producto-form", {
-      modo: "alta",
-      producto: null,
-      categorias: [],
-      error: "Error al cargar las categorías."
-    });
-  }
+export function mostrarFormularioProducto(modo) {
+  return async function (req, res) {
+    try {
+      const categorias = await productService.findAllCategories();
+       // Si es modificación busco el prd
+      let producto = null;
+
+      if (modo === "modificacion") {       
+
+        const { id } = req.params;
+
+        if (!id) {
+          return res.render("admin/producto-form", {
+            modo,
+            producto: null,
+            categorias,
+            error: "Falta el ID del producto."
+          });
+        }
+
+        producto = await productService.findProductById(id);
+      }
+
+      res.render("admin/producto-form", {
+        modo,
+        producto,
+        categorias,
+        error: null
+      });
+      
+    } catch (error) {
+      console.error("Error al cargar formulario:", error);
+      res.render("admin/producto-form", {
+        modo,
+        producto: null,
+        categorias: [],
+        error: "Error al cargar datos."
+      });
+    }
+  };
 }
+
 
 // POST /admin/productos
 export async function procesarAltaProducto(req, res) {
   try {
     const { nombre, idCategoriaProducto, precio, stock } = req.body;
     const archivo = req.file; // viene de multer
+    const categorias = await productService.findAllCategories();
 
     // Validaciones simples
     if (!nombre || !idCategoriaProducto || !precio || !stock) {
-      const [categorias] = await productRepository.geyAllCategories();
       return res.render("admin/producto-form", {
         modo: "alta",
         producto: null,
@@ -91,7 +109,6 @@ export async function procesarAltaProducto(req, res) {
     }
 
     if (!archivo) {
-      const [categorias] = await productRepository.geyAllCategories();
       return res.render("admin/producto-form", {
         modo: "alta",
         producto: null,
@@ -102,20 +119,21 @@ export async function procesarAltaProducto(req, res) {
 
     const imagen = archivo.filename; // el nombre con el que se guardó en el servidor
 
-    await productRepository.insertProduct({
-      nombre,
-      idCategoriaProducto,
-      precio,
-      stock,
-      imagen
-    });
+    console.log(req.params);
+
+    // await productService.createProduct({
+    //   nombre,
+    //   idCategoriaProducto,
+    //   precio,
+    //   stock,
+    //   imagen
+    // });
 
     // Si todo salió bien, volvemos al dashboard
-    res.redirect("/admin/dashboard");
+    // res.redirect("/admin/dashboard");
   } catch (error) {
     console.error("Error al crear producto:", error);
 
-    const [categorias] = await productRepository.geyAllCategories();
     res.render("admin/producto-form", {
       modo: "alta",
       producto: null,
