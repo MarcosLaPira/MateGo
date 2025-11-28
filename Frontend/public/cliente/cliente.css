@@ -216,6 +216,13 @@ body {
   flex: 1;
 }
 
+.item-carrito input {
+  width: 30px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
 .item-carrito .btn-eliminar {
   border: none;
   background: none;
