@@ -16,7 +16,7 @@ export async function getAllProductsByCategory(req, res) {
 
     console.log(req.params);
     const { categoriaId } = req.params;
-    console.log(categoriaId);
+    console.log("Hola mundo");
 
     if (!categoriaId) {
       return res.status(400).json({ error: "El parámetro idCategoriaProducto es obligatorio" });

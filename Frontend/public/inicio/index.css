@@ -17,7 +17,7 @@ body {
   background-position: center;   
   background-repeat: no-repeat;  
 
-  /* Opcional: oscurecer un poco el fondo para que el texto se lea bien */
+  
   background-color: rgba(0,0,0,0.3);
   background-blend-mode: darken;
   

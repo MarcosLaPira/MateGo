@@ -16,7 +16,7 @@ import {
 const router = Router();
 
 router.get("/", getAllProducts);
-router.get("/categoria/:categoriaId",validateId, getAllProductsByCategory); 
+router.get("/categoria/:categoriaId", getAllProductsByCategory); 
 router.get("/categorias", GetAllCategories); 
 router.get("/:id",validateId, getProductById);
 router.post("/",createProduct );

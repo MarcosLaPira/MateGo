@@ -11,6 +11,8 @@ const loggerUrl = (req, res, next) => {
 
 // Middleware de ruta -> Se aplica a rutas especificas
 const validateId = (req, res, next) => {
+
+    console.log("hola mundo")
     let { id } = req.params;
 
     // Nos aseguramos que el ID sea un numero (La consulta podria fallar o generar un error en la BBDD)

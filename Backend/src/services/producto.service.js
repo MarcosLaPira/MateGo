@@ -18,8 +18,9 @@ export async function findAllCategories() {
 
 export async function findAllProductsByCategory(idCategoriaProducto) {
 
-
+  console.log("findAllProductsByCategory service called with idCategoriaProducto:", idCategoriaProducto);
   const [rows] = await productRepository.getAllProductsByCategory(idCategoriaProducto);
+  console.log(rows);
 
   return rows.map(p => obtenerUrlImagen(p));
 }

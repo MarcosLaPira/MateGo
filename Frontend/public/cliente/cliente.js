@@ -1,5 +1,7 @@
+//definimos url de api base localhost
 const API_BASE = "http://localhost:3000";
 
+// Estado global
 const estado = {
   nombreCliente: "",
   productos: [],
@@ -20,28 +22,38 @@ const btnConfirmar = document.getElementById("btnConfirmar");
 const seccionTicket = document.getElementById("seccionTicket");
 const contenidoTicket = document.getElementById("contenidoTicket");
 const btnNuevoPedido = document.getElementById("btnNuevoPedido");
-
 const btnSalir = document.getElementById("btnSalir");
 
-
-//cargar nombre cliente
-function inicializarNombre() {
-  const nombre = localStorage.getItem("nombreCliente");
-  if (!nombre) {
-    // si no hay nombre, volvemos al inicio
-    window.location.href = "inicio.html";
-    return;
-  }
-  estado.nombreCliente = nombre;
-  textoBienvenida.textContent = `Hola, ${nombre}`;
-}
-
-// --------------- Tema claro/oscuro ---------------
-const temaGuardado = localStorage.getItem("tema") || "light";
+const temaGuardado = localStorage.getItem("tema") || "light"; //tema claro y oscuro
 document.documentElement.setAttribute("data-theme", temaGuardado);
+
+
 actualizarIconoTema();
 
+
+
+//FUNCIONES
+
+
+//cargar nombre cliente desde localStorage
+function inicializarNombre() {
+
+  const nombre = localStorage.getItem("nombreCliente");
+  
+  if (!nombre) {
+    
+    window.location.href = "inicio.html";// si no hay nombre, volvemos al inicio
+    return;
+  }
+
+  estado.nombreCliente = nombre;
+  textoBienvenida.textContent = `Hola, ${nombre}!`;
+
+}
+
+// actualizar ícono de tema
 function actualizarIconoTema() {
+
   const tema = document.documentElement.getAttribute("data-theme");
 
   if (tema === "light") {
@@ -49,70 +61,90 @@ function actualizarIconoTema() {
   } else {
     iconoTema.src = "/png/dom.png";             // ícono para modo oscuro
   }
+  
 }
 
-
+// cambiar tema al hacer clic
 btnTema.addEventListener("click", () => {
+
   const actual = document.documentElement.getAttribute("data-theme");
   const nuevo = actual === "light" ? "dark" : "light";
 
-  document.documentElement.setAttribute("data-theme", nuevo);
+  document.documentElement.setAttribute("data-theme", nuevo);//cambiamos icono
   localStorage.setItem("tema", nuevo);
 
   actualizarIconoTema();
+
 });
 
+
+// salir y volver al inicio
 btnSalir.addEventListener("click", () => {
-  localStorage.removeItem("nombreCliente");
+
+  localStorage.removeItem("nombreCliente");//removemos nombre del localStorage
   window.location.href = "/public/inicio/index.html";
+
 });
+
+
 
 //cargamos los productos desde la api
 async function cargarProductos() {
+
   try {
+
     const resp = await fetch(`${API_BASE}/productos`);
 
     if (!resp.ok) {
       throw new Error("Error al cargar productos");
     }
 
-    // acá sí obtenés el array de productos
-    const productos = await resp.json();
+    
+    const productos = await resp.json();// parseamos json
 
     console.log("Productos desde la API:", productos);
 
-    if (!Array.isArray(productos) || productos.length === 0) {
+    if (!Array.isArray(productos) || productos.length === 0) { //validaciones
       throw new Error("No se recibieron productos");
     }
 
-    // filtrás por activos
-    estado.productos = productos.filter(p => p.activo !== 0);
+   
+    estado.productos = productos.filter(p => p.activo !== 0);//filtramos solo los productos activos por el administrador
 
     renderizarProductos();
 
   } catch (err) {
+
     console.error(err);
     listaProductos.innerHTML = "<p>Error al cargar productos.</p>";
+    alert("No se pudieron cargar los productos desde la base de datos.Chequeá la conexión a internet.Intenta mas tarde");
   }
+
 }
 
-
+// renderizamos productos en el DOM
 function renderizarProductos() {
 
     debugger;
 
-  listaProductos.innerHTML = "";
+  listaProductos.innerHTML = "";//limpiamos lista antes de renderizar
 
+  //filtramos por categoría solicitada
   const filtrados = estado.productos.filter(p => {
+
     if (estado.filtroCategoria === "todas") return true;
     return p.categoria === estado.filtroCategoria;
+
   });
 
   if (filtrados.length === 0) {
+
     listaProductos.innerHTML = "<p>No hay productos en esta categoría.</p>";
     return;
+
   }
 
+  // recorremos productos filtrados y los agregamos al DOM
   filtrados.forEach(p => {
 
     
