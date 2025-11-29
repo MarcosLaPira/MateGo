@@ -5,10 +5,13 @@ import {
   procesarLogin,
   mostrarDashboard,
   mostrarFormularioProducto,
-  procesarAltaProducto
+  procesarAltaProducto,
+  procesarModificacionProducto
 } from "../controllers/admin.controller.js";
 
-import { upload } from "../config/multer.js"; // ya lo venís usando para productos API
+import {deleteProduct} from "../controllers/producto.controller.js";
+
+import { upload } from "../config/multer.js";
 
 const router = Router();
 
@@ -22,6 +25,9 @@ router.get("/dashboard", mostrarDashboard);
 // Modificacion de producto (admin)
 router.get("/productos/:id/editar", mostrarFormularioProducto("modificacion"));
 
+// Modificacion de producto (admin)
+router.delete("/productos/:id/eliminar", deleteProduct);
+
 // Alta de producto (admin)
 router.get("/productos/nuevo", mostrarFormularioProducto("alta"));
 
@@ -32,11 +38,11 @@ router.post(
   procesarAltaProducto
 );
 
-// POST alta de producto con imagen
+// POST update de producto con imagen
 router.post(
   "/productos/:id/editar",
   upload.single("imagen"), // "imagen" tiene que coincidir con el name del input file
-  procesarAltaProducto
+  procesarModificacionProducto
 );
 
 router.get("/", (req, res) => {

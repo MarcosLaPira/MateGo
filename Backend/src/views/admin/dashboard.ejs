@@ -63,21 +63,14 @@
               <td>$<%= Number(p.precio).toFixed(2) %></td>
               <td><%= p.stock %></td>
               <td><%= p.activo ? "Sí" : "No" %></td>
-              <td>
+             <td>
 
-                <a href="/admin/productos/<%= p.idProducto %>/editar">Editar</a>
+              <a class="btn-accion btn-editar" href="/admin/productos/<%= p.idProducto %>/editar">Editar</a>
+              <% if (p.activo) { %>
+                <a data-id="<%= p.idProducto %>" class="btn-accion btn-eliminar">Eliminar</a>
+              <% } %>
 
-                <% if (p.activo) { %>
-
-                  <form action="/admin/productos/<%= p.idProducto %>/eliminar" method="POST" style="display:inline;">
-
-                    <button type="submit">Eliminar</button>
-
-                  </form>
-
-                <% } %>
-
-              </td>
+            </td>
 
             </tr>
 
@@ -93,6 +86,7 @@
     <small>MateGo - Proyecto UTN Programación III Lautaro Moreira y Marcos La Pira</small>
   </footer>
 
-
+ <!-- SCRIPT VA ABAJO PARA QUE SE CARGUE AL FINAL DEL HTML SINO ROMPE -->
+  <script src="/js/admin-dashboard.js"></script>
 </body>
 </html>

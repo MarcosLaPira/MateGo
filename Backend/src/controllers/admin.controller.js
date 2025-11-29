@@ -119,24 +119,94 @@ export async function procesarAltaProducto(req, res) {
 
     const imagen = archivo.filename; // el nombre con el que se guardó en el servidor
 
-    console.log(req.params);
-
-    // await productService.createProduct({
-    //   nombre,
-    //   idCategoriaProducto,
-    //   precio,
-    //   stock,
-    //   imagen
-    // });
+  await productService.createProduct({
+      nombre,
+      idCategoriaProducto,
+      precio,
+      stock,
+      imagen
+    });
 
     // Si todo salió bien, volvemos al dashboard
-    // res.redirect("/admin/dashboard");
+    res.redirect("/admin/dashboard");
   } catch (error) {
     console.error("Error al crear producto:", error);
 
     res.render("admin/producto-form", {
       modo: "alta",
       producto: null,
+      categorias,
+      error: "Ocurrió un error al guardar el producto."
+    });
+  }
+}
+// POST /admin/productos/:id/editar
+export async function procesarModificacionProducto(req, res) {
+  const { nombre, idCategoriaProducto, precio, stock, idProducto, activo } = req.body;
+  const archivo = req.file;
+  const categorias = await productService.findAllCategories();
+  const oldProduct = await productService.findProductById(idProducto);
+
+  try {
+
+    if (!oldProduct) {
+      return res.render("admin/producto-form", {
+        modo: "modificacion",
+        producto: null,
+        categorias,
+        error: "El producto que intentás editar no existe."
+      });
+    }
+
+    // Validaciones básicas
+    if (!nombre || !idCategoriaProducto || !precio || !stock) {
+      const producto = {
+        ...oldProduct,
+        nombre,
+        idCategoriaProducto,
+        precio,
+        stock
+      };
+
+      return res.render("admin/producto-form", {
+        modo: "modificacion",
+        producto,
+        categorias,
+        error: "Faltan campos obligatorios."
+      });
+    }
+
+    // Imagen: nueva si hay archivo, sino la vieja
+    let imagenFinal = oldProduct.imagen;
+    if (archivo) {
+      imagenFinal = archivo.filename;
+    }
+
+    await productService.updateProduct(idProducto, {
+      nombre,
+      idCategoriaProducto,
+      precio,
+      stock,
+      imagen: imagenFinal,
+      activo: activo ? true : false // si es undefined o null lo paso a false
+    });
+
+    return res.redirect("/admin/dashboard");
+
+  } catch (error) {
+    console.error("Error al modificar producto:", error);
+
+    const producto = {
+      ...oldProduct,
+      nombre,
+      idCategoriaProducto,
+      precio,
+      stock
+    };
+
+    return res.render("admin/producto-form", {
+      modo: "modificacion",
+      producto,
       categorias,
       error: "Ocurrió un error al guardar el producto."
     });

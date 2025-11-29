@@ -18,12 +18,13 @@
       <% if (error) { %>
         <p class="error"><%= error %></p>
       <% } %>
+      
+      <form action="<%= modo === 'alta'
+              ? '/admin/productos'
+              : '/admin/productos/' + (producto ? producto.idProducto : '') + '/editar' %>"
+            method="POST"
+            enctype="multipart/form-data">
 
-      <form   action="<%= modo === 'alta' 
-              ? '/admin/productos' 
-              : '/admin/productos/' + producto.idProducto + '/editar' %>" 
-               method="POST" enctype="multipart/form-data">
-       
         <div class="campo-form">
 
           <label for="nombre">Nombre</label>
@@ -35,9 +36,11 @@
             required
             value="<%= producto ? producto.nombre : "" %>"
           />
-
         </div>
-
+        <div class="campo-form campo-check"> 
+          <label for="activo">Activo</label>
+          <input class="check" type="checkbox" name="activo" value="1" <%= producto.activo ? "checked" : "" %> > 
+        </div>
         <div class="campo-form">
 
           <label for="idCategoriaProducto">Categoría</label>
@@ -57,6 +60,7 @@
           </select>
 
         </div>
+<div class="fila-doble">
 
         <div class="campo-form">
 
@@ -87,6 +91,7 @@
           />
 
         </div>
+        </div>
 
         <div class="campo-form">
 
@@ -98,7 +103,6 @@
             name="imagen"
             accept="image/*"
           />
-          
 
         <% if (producto && producto.imagen) { %>
           <div class="preview-imagen">
@@ -106,7 +110,11 @@
             <img src="<%= producto.urlImagen %>" alt="Imagen actual">
           </div>
         <% } %>
-        
+
+         <% if (producto && producto.idProducto) { %>
+          <input id="idProducto" name="idProducto" value="<%= producto.idProducto %>" type="hidden">
+        <% } %>
+
         </div>
 
         <div class="acciones-form">
@@ -115,7 +123,7 @@
             <a href="/admin/dashboard" class="btn-secundario">Cancelar</a>
            
             <a href="http://127.0.0.1:5500/public/inicio/index.html" class="btn-secundario salir-btn">Salir</a>
-      
+
           </div>
 
       </form>

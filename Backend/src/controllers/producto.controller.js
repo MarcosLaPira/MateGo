@@ -67,13 +67,14 @@ export async function deleteProduct(req, res) {
     if (!result) {
      return res.status(400).json({ message: "No se elimino el producto" });
     }
-
-    res.status(200).json({ message: "Producto eliminado correctamente" }  );
+    
+    return res.status(200).json({ message: "Se elimino el producto" });
 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
+
 export async function createProduct(req, res) {
   try {
     const id = await productService.createProduct(req.body);
@@ -96,7 +97,8 @@ export async function updateProduct(req, res) {
       return res.status(404).json({ message: "Producto no encontrado" });
     }
 
-    res.json({ message: "Producto actualizado correctamente" });
+    res.redirect("/admin/dashboard");
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

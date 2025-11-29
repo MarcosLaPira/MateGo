@@ -1,104 +1,140 @@
+/* ============================================================
+   ESTILOS GENERALES DEL SITIO
+   ============================================================ */
 
+:root {
+  /* Paleta base del dashboard */
+  --color-bg: #f5f7fb;
+  --color-card: #ffffff;
+  --color-border: #d7dde8;
+
+  --color-primary: #00796b;
+  --color-primary-dark: #00675b;
+
+  --color-danger: #c62828;
+
+  --color-text: #1f2933;
+  --color-text-muted: #6b7280;
+}
+
+/* Fondo general y tipografía */
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #fafafa;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
-.contenedor-form {
-  max-width: 480px;
-  margin: 30px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.logoPng {
-  height: 40px;
-
-}
-.logoImagenTema {
-  height: 24px;
-}
-
-.logo .emoji {
-  font-size: 1.6rem;
-}
-
-.logo .titulo {
-  font-weight: bold;
-}
-
-
-h2 {
-  margin-bottom: 12px;
-}
-
-label {
-  display: block;
-  margin-top: 12px;
-}
-
-input, select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background: #00796b;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.btn-volver {
-  display: block;
-  margin-top: 15px;
-  text-align: center;
-  color: #00796b;
-  text-decoration: none;
-}
-
-
-
-.pie {
-  text-align: center;
-  padding: 10px;
-  font-size: 0.8rem;
-  color: var(--texto-sec);
- 
-}
-
-/* Contenedor especial para imagen */
-.imagen-container {
-  margin-top: 15px;
-}
-
-/* Bloque que contiene el texto y la imagen */
-.preview-imagen {
-  margin-top: 10px;
+body.dashboard {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+.contenedor-form {
+  max-width: 40rem; /* ~512px */
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  flex: 1;
+}
+
+/* Tarjeta del formulario */
+.tarjeta {
+  background: var(--color-card);
+  padding: 1.8rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.6rem 1.8rem rgba(15, 23, 42, 0.10);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Titulo */
+h1 {
+  margin: 0 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ============================================================
+   MENSAJES DE ERROR
+   ============================================================ */
+
+.error {
+  margin: 0.5rem 0 1rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.5rem;
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   CAMPOS DEL FORMULARIO
+   ============================================================ */
+
+/* Contenedor por cada campo */
+.campo-form {
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.campo-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--color-text-muted);
+}
+
+/* Inputs y selects */
+.campo-form input,
+.campo-form select,
+.campo-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  font-size: 0.95rem;
+  background-color: #f9fafb;
+  box-sizing: border-box;
+}
+
+/* Hover / Focus */
+.campo-form input:focus,
+.campo-form select:focus {
+  border-color: var(--color-primary);
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 0.15rem rgba(0, 121, 107, 0.15);
+}
+
+/* Checkbox alineado */
+.campo-form.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   INPUT FILE E IMAGEN
+   ============================================================ */
+
+/* Input file */
+input[type="file"] {
+  font-size: 0.9rem;
+}
+
+/* Columna de imagen */
+.preview-imagen {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 /* Texto arriba de la imagen */
@@ -108,13 +144,146 @@ button:hover {
   color: #444;
 }
 
-/* La imagen con estilo */
+/* Imagen de previsualización */
 .preview-imagen img {
-  width: 180px;              /* tamaño elegante */
-  height: 180px;
+  width: 12rem;  /* ~192px */
+  height: 12rem;
   object-fit: cover;
-  border-radius: 8px;        /* esquinas suaves */
-  border: 1px solid #ddd;    /* borde fino */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12); /* sombra suave */
-  align-self: center;        /* centrada dentro del form */
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 0.25rem 0.8rem rgba(15, 23, 42, 0.18);
+  align-self: center;
+}
+
+/* ============================================================
+   BOTONES Y ACCIONES
+   ============================================================ */
+
+.acciones-form {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: space-between;
+}
+
+/* Botón principal */
+button[type="submit"] {
+  flex: 1 1 10rem;
+  padding: 0.8rem 1rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+}
+
+/* Hover */
+button[type="submit"]:hover {
+  background: var(--color-primary-dark);
+  box-shadow: 0 0.4rem 1rem rgba(0,121,107,0.35);
+  transform: translateY(-1px);
+}
+
+/* Botones secundarios (Cancelar / Salir) */
+.btn-secundario {
+  flex: 1 1 10rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 2rem;
+  border: 1px solid var(--color-border);
+  text-align: center;
+  text-decoration: none;
+  background: #f9fafb;
+  color: var(--color-text-muted);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-secundario:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #1d4ed8;
+}
+
+/* Botón de "Salir" */
+.salir-btn {
+  background: #fef2f2;
+  border-color: rgba(248, 113, 113, 0.7);
+  color: var(--color-danger);
+}
+
+.salir-btn:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #b91c1c;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.pie {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 37.5rem) { /* ~600px */
+  .tarjeta {
+    padding: 1.4rem;
+  }
+
+  .acciones-form {
+    flex-direction: column;
+  }
+
+  button[type="submit"],
+  .btn-secundario {
+    width: 100%;
+  }
+}
+
+
+/* -------- Checkbox alineado horizontal -------- */
+
+.campo-check {
+  flex-direction: row;      /* fila */
+  align-items: center;      /* centra vertical */
+  justify-content: space-between;
+}
+
+.campo-check label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.check-inline {
+  display: flex;
+  align-items: center;
+}
+
+.check-inline input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+/* --- Dos campos en una misma fila (Precio / Stock) --- */
+.fila-doble {
+  display: flex;
+  gap: 1rem; /* separación entre columnas */
+}
+
+.fila-doble .campo-form {
+  flex: 1; /* cada uno ocupa el 50% */
 }

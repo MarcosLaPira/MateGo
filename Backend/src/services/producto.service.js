@@ -80,17 +80,18 @@ export async function createProduct(data) {
 //        UPDATE PRODUCT
 // =============================
 export async function updateProduct(id, data) {
-  const { nombre, idCategoriaProducto, precio, stock, imagen, activo } = data;
+  const { nombre, idCategoriaProducto, precio, stock, imagen } = data;
+  let { activo} = data;
 
-  if (!nombre || !idCategoriaProducto || !precio || !stock || !imagen || activo == null) {
-    throw new Error("Campos obligatorios: nombre, idCategoriaProducto, precio, stock, imagen, activo");
+  if (!nombre || !idCategoriaProducto || !precio || !stock || !imagen) {
+    throw new Error("Campos obligatorios: nombre, idCategoriaProducto, precio, stock, imagen");
   }
 
   if (stock < 0) {
     throw new Error("El stock no puede ser negativo");
   } 
 
-  if (stock = 0) {
+  if (stock == 0) {
     activo = false;
   } 
 
