@@ -37,10 +37,20 @@
             value="<%= producto ? producto.nombre : "" %>"
           />
         </div>
+
         <div class="campo-form campo-check"> 
+
           <label for="activo">Activo</label>
-          <input class="check" type="checkbox" name="activo" value="1" <%= producto.activo ? "checked" : "" %> > 
+          <input 
+            class="check" 
+            type="checkbox" 
+            name="activo" 
+            value="1" 
+            <%= (!producto || producto.activo) ? "checked" : "" %> 
+          >
+
         </div>
+
         <div class="campo-form">
 
           <label for="idCategoriaProducto">Categoría</label>
