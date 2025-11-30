@@ -1,5 +1,6 @@
 import * as productService from "../services/producto.service.js";
 
+// obtiene todsos los productos
 export async function getAllProducts(req, res) {
   // console.log("getAllProducts controller called");
   try {
@@ -10,6 +11,7 @@ export async function getAllProducts(req, res) {
   }
 }
 
+// obtiene todos los productos por categoria
 export async function getAllProductsByCategory(req, res) {
   // console.log("getAllProducts controller called");
   try {
@@ -30,7 +32,7 @@ export async function getAllProductsByCategory(req, res) {
   }
 }
 
-
+// obtiene todas las categorias
 export async function GetAllCategories(req, res) {
   try {
     
@@ -44,6 +46,7 @@ export async function GetAllCategories(req, res) {
   }
 }
 
+//  obtiene un producto por su id
 export async function getProductById(req, res) {
   try {
     const { id } = req.params;
@@ -59,6 +62,7 @@ export async function getProductById(req, res) {
   }
 }
 
+// elimina un producto por su id
 export async function deleteProduct(req, res) {
   try {
     const { id } = req.params;
@@ -75,6 +79,7 @@ export async function deleteProduct(req, res) {
   }
 }
 
+// crea un nuevo producto
 export async function createProduct(req, res) {
   try {
     const id = await productService.createProduct(req.body);
@@ -88,6 +93,7 @@ export async function createProduct(req, res) {
   }
 }
 
+// actualiza un producto por su id
 export async function updateProduct(req, res) {
   try {
     const { id } = req.params;

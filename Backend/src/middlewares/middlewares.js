@@ -29,8 +29,26 @@ const validateId = (req, res, next) => {
     next();
 }
 
+// Middleware para medir el tiempo de respuesta de cada endpoint
+function medirTiempo(req, res, next) {
+    // Guarda el tiempo inicial en milisegundos
+    const inicio = Date.now();
+
+    // Cuando la respuesta termine, calcular duración
+    res.on("finish", () => {
+        const fin = Date.now();
+        const duracion = fin - inicio;
+
+        console.log(
+            `[${req.method}] ${req.originalUrl} - ${duracion}ms`
+        );
+    });
+
+    next();
+}
 
 export {
     loggerUrl,
-    validateId
+    validateId,
+    medirTiempo
 }

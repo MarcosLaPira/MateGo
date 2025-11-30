@@ -2,11 +2,12 @@
 import * as productService from "../services/producto.service.js";
 import * as adminService from "../services/administrador.service.js";
 
-
+// GET /admin/login
 export async function mostrarLogin(req, res) {
   res.render("admin/login", { error: null });
 }
 
+// POST /admin/login
 export async function procesarLogin(req, res) {
 
   const { correo, contrasena } = req.body;
@@ -24,7 +25,7 @@ export async function procesarLogin(req, res) {
   }
 }
 
-
+// GET /admin/dashboard
 export async function mostrarDashboard(req, res) {
 
   try {

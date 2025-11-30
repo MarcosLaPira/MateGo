@@ -15,6 +15,7 @@ import {
 
 const router = Router();
 
+//definición de rutas para productos
 router.get("/", getAllProducts);
 router.get("/categoria/:categoriaId", getAllProductsByCategory); 
 router.get("/categorias", GetAllCategories); 

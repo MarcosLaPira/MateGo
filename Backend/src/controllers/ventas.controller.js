@@ -1,5 +1,6 @@
 import * as ventasService from "../services/ventas.service.js";
 
+// Controlador para crear una nueva venta
 export async function createVenta(req, res) {
 
     console.log("createVenta controller called with body:", req.body);

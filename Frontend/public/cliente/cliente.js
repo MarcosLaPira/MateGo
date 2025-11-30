@@ -208,6 +208,9 @@ filtrosCategoria.addEventListener("click", async (e) => {
     }
 
     estado.productos = data;// actualizamos productos en estado
+    
+    estado.productos = estado.productos.filter(p => p.activo !== 0);//filtramos solo los productos activos por el administrador
+
     renderizarProductos();//mostramos los productos filtrados
 
   } catch (error) {

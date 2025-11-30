@@ -4,7 +4,7 @@ import productRoutes from "./routes/producto.routes.js";
 import ventasRoutes from "./routes/ventas.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import { server } from "./config/enviroment.js";
-import { loggerUrl } from "./middlewares/middlewares.js";
+import { loggerUrl, medirTiempo} from "./middlewares/middlewares.js";
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,6 +24,9 @@ app.use(express.json());
 
 //MW de logger para todas las rutas
 app.use(loggerUrl);
+
+//MW de medicion de tiempo para todas las rutas
+app.use(medirTiempo);
 
 // par permitir fomurlarios ejs
 app.use(express.urlencoded({ extended: true }));

@@ -2,7 +2,7 @@
 import * as ventasRepository from "../repositories/ventas.repository.js";
 import * as productoRepository from "../repositories/producto.repository.js";
 
-
+// Servicio para crear una nueva venta
 export async function createVenta(data) {
  
     console.log("createVenta service called with data:", data);

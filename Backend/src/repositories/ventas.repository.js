@@ -1,8 +1,6 @@
 import connection from "../config/db.js";
 
-
-
-
+// Insertar una nueva venta
 export async function insertVenta( { nombreCliente, total }) {
   
   const [result] = await connection.query(
@@ -15,6 +13,7 @@ export async function insertVenta( { nombreCliente, total }) {
   
 }
 
+// Insertar un detalle de venta
 export async function insertDetalleVenta( { idVenta, idProducto, cantidad, precioUnitario }) {
   
   return connection.query(
@@ -22,7 +21,5 @@ export async function insertDetalleVenta( { idVenta, idProducto, cantidad, preci
      VALUES (?, ?, ?, ?)`
     , [idVenta, idProducto, cantidad, precioUnitario]
   );
-  
 
- 
 }
