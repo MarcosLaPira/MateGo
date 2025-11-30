@@ -19,11 +19,13 @@
         <p class="error"><%= error %></p>
       <% } %>
       
-      <form action="<%= modo === 'alta'
-              ? '/admin/productos'
-              : '/admin/productos/' + (producto ? producto.idProducto : '') + '/editar' %>"
-            method="POST"
-            enctype="multipart/form-data">
+      <form 
+        action="<%= modo === 'alta'
+                  ? '/admin/productos'
+                  : '/admin/productos/' + producto.idProducto + '/editar' %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
 
         <div class="campo-form">
 
@@ -41,6 +43,7 @@
         <div class="campo-form campo-check"> 
 
           <label for="activo">Activo</label>
+
           <input 
             class="check" 
             type="checkbox" 
@@ -56,7 +59,7 @@
           <label for="idCategoriaProducto">Categoría</label>
 
           <select id="idCategoriaProducto" name="idCategoriaProducto" required>
-           
+            
             <option value="">Seleccione una categoría</option>
             <% categorias.forEach(cat => { %>
               <option
@@ -70,74 +73,93 @@
           </select>
 
         </div>
-<div class="fila-doble">
 
-        <div class="campo-form">
+        <div class="fila-doble">
 
-          <label for="precio">Precio</label>
+          <div class="campo-form">
 
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            id="precio"
-            name="precio"
-            required
-            value="<%= producto ? producto.precio : "" %>"
-          />
+            <label for="precio">Precio</label>
 
-        </div>
-
-        <div class="campo-form">
-
-          <label for="stock">Stock</label>
-          <input
-            type="number"
-            min="0"
-            id="stock"
-            name="stock"
-            required
-            value="<%= producto ? producto.stock : "" %>"
-          />
-
-        </div>
-        </div>
-
-        <div class="campo-form">
-
-          <label for="imagen">Imagen</label>
-
-          <input
-            type="file"
-            id="imagen"
-            name="imagen"
-            accept="image/*"
-          />
-
-        <% if (producto && producto.imagen) { %>
-          <div class="preview-imagen">
-            <span>Imagen actual:</span>
-            <img src="<%= producto.urlImagen %>" alt="Imagen actual">
-          </div>
-        <% } %>
-
-         <% if (producto && producto.idProducto) { %>
-          <input id="idProducto" name="idProducto" value="<%= producto.idProducto %>" type="hidden">
-        <% } %>
-
-        </div>
-
-        <div class="acciones-form">
-
-            <button type="submit"><%= modo === "alta" ? "Agregar producto" : "Guardar cambios" %></button>
-            <a href="/admin/dashboard" class="btn-secundario">Cancelar</a>
-           
-            <a href="http://127.0.0.1:5500/public/inicio/index.html" class="btn-secundario salir-btn">Salir</a>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              id="precio"
+              name="precio"
+              required
+              value="<%= producto ? producto.precio : "" %>"
+            />
 
           </div>
+
+          <div class="campo-form">
+
+            <label for="stock">Stock</label>
+            <input
+              type="number"
+              min="0"
+              id="stock"
+              name="stock"
+              required
+              value="<%= producto ? producto.stock : "" %>"
+            />
+
+          </div>
+
+        </div>
+
+          <div class="campo-form">
+
+            <label for="imagen">Imagen</label>
+
+            <input
+              type="file"
+              id="imagen"
+              name="imagen"
+              accept="image/*"
+            />
+
+            <% if (producto && producto.imagen) { %>
+
+              <div class="preview-imagen">
+                
+                <span>Imagen actual:</span>
+                <img src="<%= producto.urlImagen %>" alt="Imagen actual">
+              
+              </div>
+
+            <% } %>
+
+            <% if (producto && producto.idProducto) { %>
+
+              <input 
+                id="idProducto" 
+                name="idProducto" 
+                value="<%= producto.idProducto %>"
+                type="hidden"
+              >
+
+            <% } %>
+
+          </div>
+
+          <div class="acciones-form">
+
+              <button 
+                type="submit">
+                <%= modo === "alta" ? "Agregar producto" : "Guardar cambios" %>
+                </button>
+              <a href="/admin/dashboard" class="btn-secundario">Cancelar</a>
+            
+              <a href="http://127.0.0.1:5500/public/inicio/index.html" class="btn-secundario salir-btn">Salir</a>
+
+          </div>
+        </div>
 
       </form>
+
     </section>
+
   </main>
 
   <footer class="pie">
